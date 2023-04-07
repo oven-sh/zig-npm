@@ -16,6 +16,13 @@ const SOURCES_URL =
 
 const response = await fetch(SOURCES_URL);
 
+try {
+  rmSync("@oven", { recursive: true, force: true });
+} catch {}
+try {
+  mkdirSync("@oven", { recursive: true });
+} catch {}
+
 const sources: any = await response.json();
 
 const zigVersion = process.env.ZIG_VERSION || "latest";
