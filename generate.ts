@@ -42,9 +42,20 @@ class Download {
 
   async extractTarGz() {
     const { exited } = Bun.spawn({
-      cmd: ["tar", "xzf", basename(this.url)],
+      cmd: ["tar", "-xzf", basename(this.url)],
       cwd: process.cwd(),
-      stderr: "ignore",
+      stderr: "inherit",
+      stdin: "inherit",
+      stdout: "ignore",
+    });
+    await exited;
+  }
+
+  async extractTarXz() {
+    const { exited } = Bun.spawn({
+      cmd: ["tar", "-xJf", basename(this.url)],
+      cwd: process.cwd(),
+      stderr: "inherit",
       stdin: "inherit",
       stdout: "ignore",
     });
@@ -60,10 +71,6 @@ class Download {
       stdout: "ignore",
     });
     await exited;
-  }
-
-  extractTarXz() {
-    return this.extractTarGz();
   }
 
   get fileName() {
