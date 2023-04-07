@@ -117,7 +117,7 @@ class Download {
       url: "",
     };
     this.packageName =
-      packageJSON.name = `@oven-sh/zig-${packageJSON.os[0]}-${packageJSON.cpu[0]}`;
+      packageJSON.name = `@oven/zig-${packageJSON.os[0]}-${packageJSON.cpu[0]}`;
     packageJSON.description = "Zig compiler for " + this.arch + "-" + this.os;
     packageJSON.url = this.url;
 
@@ -177,7 +177,7 @@ for (let key in latest) {
 const all = await Promise.all(tasks);
 
 const rootPackage = {
-  name: "@oven-sh/zig",
+  name: "@oven/zig",
   version: all[0].version,
   description: "Zig compiler for all platforms",
   optionalDependencies: Object.fromEntries(
@@ -190,16 +190,16 @@ const rootPackage = {
 };
 
 try {
-  rmSync("@oven-sh/zig", { recursive: true, force: true });
+  rmSync("@oven/zig", { recursive: true, force: true });
 } catch (e) {}
 
 try {
-  mkdirSync("@oven-sh/zig", { recursive: true });
+  mkdirSync("@oven/zig", { recursive: true });
 } catch (e) {}
 
 try {
   await Bun.write(
-    "@oven-sh/zig/zig",
+    "@oven/zig/zig",
     `
 #!/bin/sh
 if [ uname = "Darwin" ]; then
@@ -247,12 +247,9 @@ fi
   );
 } catch (e) {}
 
-chmodSync("@oven-sh/zig/zig", 0o777);
+chmodSync("@oven/zig/zig", 0o777);
 
-await Bun.write(
-  "@oven-sh/zig/package.json",
-  JSON.stringify(rootPackage, null, 2)
-);
+await Bun.write("@oven/zig/package.json", JSON.stringify(rootPackage, null, 2));
 
 for (let downloaded of all) {
   if (!existsSync(downloaded.packageName)) {
@@ -273,7 +270,7 @@ for (let downloaded of all) {
 {
   const { exited } = Bun.spawn({
     cmd: ["npm", "publish", "--access", "public"],
-    cwd: "@oven-sh/zig",
+    cwd: "@oven/zig",
     stderr: "inherit",
     stdin: "inherit",
     stdout: "inherit",
