@@ -179,3 +179,5 @@ dist
 
 *.log
 zig-*
+
+node_modules
