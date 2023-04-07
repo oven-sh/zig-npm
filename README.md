@@ -13,5 +13,5 @@ It downloads release builds from https://ziglang.org/download/ and the list of r
 Generate:
 
 ```sh
-bun generate.ts
+bun generate.ts --dry-run
 ```

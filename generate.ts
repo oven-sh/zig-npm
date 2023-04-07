@@ -8,6 +8,8 @@ import {
 } from "fs";
 import { basename, dirname, extname, join } from "path";
 
+const DRY_RUN = process.argv.includes("--dry-run");
+
 const SOURCES_URL =
   process.env.SOURCES_URL ||
   "https://cdn.jsdelivr.net/gh/mitchellh/zig-overlay@main/sources.json";
@@ -213,7 +215,13 @@ for (let downloaded of all) {
 
 for (let downloaded of all) {
   const { exited } = Bun.spawn({
-    cmd: ["npm", "publish", "--access", "public"],
+    cmd: [
+      "npm",
+      "publish",
+      "--access",
+      "public",
+      DRY_RUN ? "--dry-run" : "",
+    ].filter((a) => a.length > 0),
     cwd: downloaded.packageName,
     stderr: "inherit",
     stdin: "inherit",
@@ -223,7 +231,13 @@ for (let downloaded of all) {
 }
 {
   const { exited } = Bun.spawn({
-    cmd: ["npm", "publish", "--access", "public"],
+    cmd: [
+      "npm",
+      "publish",
+      "--access",
+      "public",
+      DRY_RUN ? "--dry-run" : "",
+    ].filter((a) => a.length > 0),
     cwd: "@oven/zig",
     stderr: "inherit",
     stdin: "inherit",
