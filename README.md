@@ -4,8 +4,6 @@ This downloads release builds of Zig and publishes them to npm. Trying to make i
 
 ## Usage
 
-TODO: publish this to npm. This doesn't work yet.
-
 ```sh
 bunx @oven/zig --version
 ```
