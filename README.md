@@ -1,8 +1,10 @@
 # zig-npm
 
-This downloads release builds of Zig and publishes them to npm.
+This downloads release builds of Zig and publishes them to npm. Trying to make it easier to contribute to Bun and other Zig projects.
 
 ## Usage
+
+TODO: publish this to npm. This doesn't work yet.
 
 ```sh
 bunx @oven/zig --version
