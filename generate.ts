@@ -198,53 +198,7 @@ try {
 } catch (e) {}
 
 try {
-  await Bun.write(
-    "@oven/zig/zig",
-    `
-#!/bin/sh
-if [ uname = "Darwin" ]; then
-
-    if [ uname -m = "arm64" ]; then
-
-        ../zig-darwin-arm64/zig "$@"
-
-    else
-
-        ../zig-darwin-x64/zig "$@"
-
-    fi
-
-elif [ uname = "Linux" ]; then
-
-    if [ uname -m = "aarch64" ]; then
-
-        ../zig-linux-arm64/zig "$@"
-    else
-
-        ../zig-linux-x64/zig "$@"
-
-    fi
-
-elif [ uname = "Windows" ]; then
-
-    if [ uname -m = "x86_64" ]; then
-
-        ../zig-win32-x64/zig.exe "$@"
-
-    else
-
-        ../zig-win32-x86/zig.exe "$@"
-
-    fi
-
-else
-
-    echo "Unsupported platform"
-    exit 1
-
-fi    
-`.trim()
-  );
+  await Bun.write("@oven/zig/zig", Bun.file("./zig.sh"));
 } catch (e) {}
 
 chmodSync("@oven/zig/zig", 0o777);
