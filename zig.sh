@@ -2,7 +2,10 @@
 
 set -euo pipefail
 
-parent_dir=$(dirname $BASH_SOURCE[0])
+parent_dir=$(
+    cd -- "$(dirname "$0")" >/dev/null 2>&1
+    pwd -P
+)
 
 if [[ $(uname) == "Darwin" ]]; then
 
